@@ -17,9 +17,7 @@ public class WaypointsFollower : MonoBehaviour {
 
 	void Start () {
 		// todo: als er al waypoints beschikbaar zijn: ga richting de eerste waypoint
-
 		NextWayPoint();
-
 	}
 
 	void Update () {

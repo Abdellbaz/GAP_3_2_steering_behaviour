@@ -19,9 +19,7 @@ public class Pursuer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// we gaan dit later nog mooier maken met State Machines en delegates :)
-
 		checkTargetDistance();
-
 	}
 
 	void checkTargetDistance(){
