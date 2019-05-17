@@ -4,49 +4,49 @@ using System.Collections;
 public class WanderState : State {
 
 	[SerializeField]
-	private float speed = 1f;
+	private float _speed = 1f;
 
 	[SerializeField]
-	private float arrivalDistance = 0f;
+	private float _arrivalDistance = 0f;
 
 	[SerializeField]
-	private float sightDistance = 2.5f;
+	private float _sightDistance = 2.5f;
 
 	[SerializeField]
-	private GameObject player;
+	private GameObject _player;
 
-	private Vector2 targetPosition = new Vector2();
+	private Vector2 _targetPosition = new Vector2();
 	
 	public override void Enter(){
 		// we switchen naar deze state: dus kies alvast een nieuwe target position
-		chooseTargetLocation();
+		ChooseTargetLocation();
 	}
 
-	void chooseTargetLocation(){
+	void ChooseTargetLocation(){
 		// kiest een locatie binnen het veld van de camera
 		Vector3 world = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 		
-		targetPosition.x = Random.Range(-world.x, world.x);
-		targetPosition.y = Random.Range(-world.y, world.y);
+		_targetPosition.x = Random.Range(-world.x, world.x);
+		_targetPosition.y = Random.Range(-world.y, world.y);
 	}
 
 	public override void Act(){
-		float step = speed * Time.deltaTime;
+		float step = _speed * Time.deltaTime;
 		float distance;
 
-		transform.position = Vector2.MoveTowards(transform.position, targetPosition, step);
-		distance = Vector2.Distance(transform.position, targetPosition);
+		transform.position = Vector2.MoveTowards(transform.position, _targetPosition, step);
+		distance = Vector2.Distance(transform.position, _targetPosition);
 
-		if(distance < arrivalDistance)
-			chooseTargetLocation();
+		if(distance < _arrivalDistance)
+			ChooseTargetLocation();
 	}
 
 	public override void Reason(){
-		float distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
+		float distanceToPlayer = Vector2.Distance(_player.transform.position, transform.position);
 
-		if(distanceToPlayer < sightDistance){
+		if(distanceToPlayer < _sightDistance){
 			// laten we switchen naar een nieuwe state
-			GetComponent<StateMachine>().SetState( StateID.Alerting);
+			GetComponent<StateMachine>().SetState( StateId.Alerting);
 		}
 
 	}

@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum StateID
+public enum StateId
 {
-	NullStateID = 0,
+	NullStateId = 0,
 	Wandering = 1,
 	Alerting = 2,
 	Fleeing = 3
@@ -13,24 +13,24 @@ public enum StateID
 public class Guard : MonoBehaviour {
 
 	/** we declareren de statemachine */
-	private StateMachine stateMachine;
+	private StateMachine _stateMachine;
 
 	// Use this for initialization
 	void Start () {
 		/** we halen een referentie op naar de state machine */
-		stateMachine = GetComponent<StateMachine>();
+		_stateMachine = GetComponent<StateMachine>();
 
 		/** we voegen de verschillende states toe aan de state machine */
 		MakeStates();
 
 		/** we geven de eerste state door (rondlopen) */
-		stateMachine.SetState( StateID.Wandering );
+		_stateMachine.SetState( StateId.Wandering );
 	}
 	
 	void MakeStates() {
-		stateMachine.AddState( StateID.Alerting, GetComponent<AlertState>() );
-		stateMachine.AddState( StateID.Wandering, GetComponent<WanderState>() );
-		stateMachine.AddState( StateID.Fleeing, GetComponent<FleeState>() );
+		_stateMachine.AddState( StateId.Alerting, GetComponent<AlertState>() );
+		_stateMachine.AddState( StateId.Wandering, GetComponent<WanderState>() );
+		_stateMachine.AddState( StateId.Fleeing, GetComponent<FleeState>() );
 	}
 
 }

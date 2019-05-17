@@ -4,7 +4,7 @@ using System.Collections;
 public class SteeringVehicle : MonoBehaviour {
 
 	[SerializeField]
-	private float maxSpeed	=	5;
+	private float maxSpeed	=	20;
 
 	/** hoe zwaarder het object, hoe slechter hij kan bijsturen */
 	[SerializeField]
@@ -33,7 +33,7 @@ public class SteeringVehicle : MonoBehaviour {
 		Seek();
 	}
 	
-	public void setTarget(Vector2 target) {
+	public void SetTarget(Vector2 target) {
 		currentTarget = target;
 	}
 

@@ -11,7 +11,6 @@ public class Weapon {
 	// dit zorgt voor thread safety
 	readonly object locker = new object();
 
-
 	public void Shoot(){
 		lock(locker){
 			// geen thread safety

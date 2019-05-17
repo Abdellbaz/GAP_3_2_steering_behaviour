@@ -11,38 +11,39 @@ public class StateMachine : MonoBehaviour {
 	/// </summary>
 
 	/** We maken een dictionary aan om de states in bij te houden */
-	private Dictionary<StateID, State> states = new Dictionary<StateID, State> ();
+	private Dictionary<StateId, State> _states = new Dictionary<StateId, State> ();
 
 	/** een verwijzing naar de huidige staat waarin we verkeren */
-	private State currentState;
+	private State _currentState;
 	
 	void Update () {
 		// als we een state hebben: uitvoeren die hap
-		if(currentState != null){
-			currentState.Reason();
-			currentState.Act();
-		}
+		if (_currentState == null) 
+			return;
 		
+		_currentState.Reason();
+		_currentState.Act();
+
 	}
 
 	/// <summary>
 	/// Method om de state te wijzigen
 	/// </summary>
-	public void SetState(StateID stateID) {
+	public void SetState(StateId stateId) {
 
 		/** als we de stateID niet kennen als state: stop deze functie dan */
-		if(!states.ContainsKey(stateID))
+		if(!_states.ContainsKey(stateId))
 			return;
 
 		/** als we ons al in een state bevinden: geef de state de mogelijkheid zich op te ruimen */
-		if(currentState != null)
-			currentState.Leave();
+		if(_currentState != null)
+			_currentState.Leave();
 
-		/** we stellen de nieuwe currentState in */
-		currentState = states[stateID];
+		/** we stellen de nieuwe _currentState in */
+		_currentState = _states[stateId];
 
 		/** we geven de nieuwe state de mogelijkheid om zich zelf in te stellen */
-		currentState.Enter();
+		_currentState.Enter();
 	}
 
 	/// <summary>
@@ -50,10 +51,10 @@ public class StateMachine : MonoBehaviour {
 	/// LET OP! Alle components die de Class State.cs extenden (inheritance) die mogen in de Dictionary
 	/// Daarom mogen AlertState.cs, AlertState.cs en FleeState.cs in de dictionary, aangezien zij State.CS extenden
 	/// </summary>
-	/// <param name="stateID">Een integer die komt uit de ENUM StateID (zie StateID in Guard.cs)</param>
+	/// <param name="stateId">Een integer die komt uit de ENUM StateID (zie StateID in Guard.cs)</param>
 	/// <param name="state">Een component die State.cs extend (inheritance)</param>
-	public void AddState(StateID stateID, State state) {
-		states.Add( stateID, state );
+	public void AddState(StateId stateId, State state) {
+		_states.Add( stateId, state );
 	}
 
 }
